@@ -33,6 +33,11 @@ public class Application {
         case 5:
           printer.printExit();
           return;
+        case 6:
+          reader.readLine(); //버퍼 정리
+          orderManager.processOrder(reader, printer, menu);
+
+          break;
         default:
           printer.printInvalidInput();
       }

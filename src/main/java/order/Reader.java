@@ -9,6 +9,10 @@ public class Reader {
         return scanner.nextInt();
     }
 
+    public String readLine(){
+        return scanner.nextLine();
+    }
+
     public void close() {
         scanner.close();
     }

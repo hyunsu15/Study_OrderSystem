@@ -5,7 +5,7 @@ import java.util.*;
 public class Printer {
     public void printMainMenu() {
         System.out.println("원조벅스에 오신걸 환영합니다. 어떤 것을 원하십니까?");
-        System.out.println("1: 메뉴판 2: 인기 메뉴 3: 비인기 메뉴 4: 매출 5: 종료");
+        System.out.println("1: 메뉴판 2: 인기 메뉴 3: 비인기 메뉴 4: 매출 5: 종료 6: 주문");
     }
 
     public void printMenu(List<MenuItem> items) {
@@ -36,6 +36,46 @@ public class Printer {
 
     public void printExit() {
         System.out.println("종료됐습니다!");
+    }
+
+    public void printOrdering(){
+        System.out.println("어떤 것을 원하십니까?");
+    }
+
+    public boolean printConfirmOrder(Menu menu, Map<Integer, Integer> orderData, Reader reader) {
+
+        int totalPrice = 0;
+        for (Map.Entry<Integer, Integer> entry : orderData.entrySet()) {
+            int menuIndex = entry.getKey();
+            int quantity = entry.getValue();
+
+            MenuItem item = menu.getItems().get(menuIndex);
+            totalPrice += item.getPrice() * quantity;
+
+            System.out.println(item.getName() + " " + quantity + "개 (" + item.getPrice() + "원 x " + quantity + ")");
+        }
+
+        System.out.println("총 가격: " + totalPrice + "원");
+        System.out.println("주문하시겠습니까? (네:1 or 아니오:2)");
+
+        int userInput = reader.readInt();
+        reader.readLine();
+
+        return userInput == 1;
+    }
+
+
+    public void printOrderCompleted(MenuItem item, int quantity) {
+        System.out.println(item.getName() + " " + quantity + "개 주문이 완료되었습니다.");
+    }
+
+    public void printOrderCancelled() {
+        System.out.println("주문이 취소되었습니다.");
+    }
+
+    public void printOrderError(String message) {
+        System.out.println("주문 오류: " + message);
+        System.out.println("다시 시도해주세요.");
     }
 
     public void printInvalidInput() {
